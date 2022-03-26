@@ -194,13 +194,13 @@ public class FillWindowController {
         
         public void onAction() throws Exception{
         	
-        	File fileForPrint = new File("C:/Users/Anton/Desktop/Print.xlsx");
+        	File fileForPrint = new File(System.getProperty("user.home") + "/Desktop/Print.xlsx");
         		
             Patient patient = getPatient();                            
             System.out.println(patient);
             checkingPatientFields(patient);
               Workbook workbook = new Workbook();
-              workbook.loadFromFile("C:/Users/Anton/Desktop/Copy.xlsx");              
+              workbook.loadFromFile("src/main/resources/by/bobruisk/zhelnov/myproject/mavenproject1/Original.xlsx");              
 
               fillPatientFieldsInWorkbook(patient, workbook);
               fillDoctorFieldInWorkbook(workbook);
