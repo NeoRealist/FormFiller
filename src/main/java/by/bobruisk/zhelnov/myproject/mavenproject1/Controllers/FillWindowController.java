@@ -4,12 +4,12 @@
  */
 package by.bobruisk.zhelnov.myproject.mavenproject1.Controllers;
 
-import by.bobruisk.zhelnov.myproject.alerts.AllRight;
-import by.bobruisk.zhelnov.myproject.alerts.FieldsFilledOutIncorrectly;
-import by.bobruisk.zhelnov.myproject.alerts.OtherCharsInNumericFields;
 import by.bobruisk.zhelnov.myproject.mavenproject1.App;
 import by.bobruisk.zhelnov.myproject.mavenproject1.BirthDate;
 import by.bobruisk.zhelnov.myproject.mavenproject1.Exceptions.IncorrectNumberException;
+import by.bobruisk.zhelnov.myproject.mavenproject1.alerts.AllRight;
+import by.bobruisk.zhelnov.myproject.mavenproject1.alerts.FieldsFilledOutIncorrectly;
+import by.bobruisk.zhelnov.myproject.mavenproject1.alerts.OtherCharsInNumericFields;
 import by.bobruisk.zhelnov.myproject.mavenproject1.helpers.Printer;
 import by.bobruisk.zhelnov.myproject.mavenproject1.FullName;
 import by.bobruisk.zhelnov.myproject.mavenproject1.HomeAddress;
