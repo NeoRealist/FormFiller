@@ -3,15 +3,15 @@ package by.bobruisk.zhelnov.myproject.mavenproject1;
 public class Patient {
 	private FullName fullName;
 	private BirthDate birthDate;
-	private HomeAdress homeAdress;
+	private HomeAddress homeAddress;
 	
 	
 	
-	public Patient(FullName fullName, BirthDate birthDate, HomeAdress homeAdress) {
+	public Patient(FullName fullName, BirthDate birthDate, HomeAddress homeAdress) {
 		super();
 		this.fullName = fullName;
 		this.birthDate = birthDate;
-		this.homeAdress = homeAdress;
+		this.homeAddress = homeAdress;
 	}
 
 
@@ -28,16 +28,16 @@ public class Patient {
 	public void setBirthDate(BirthDate birthDate) {
 		this.birthDate = birthDate;
 	}
-	public HomeAdress getHomeAdress() {
-		return homeAdress;
+	public HomeAddress getHomeAdress() {
+		return homeAddress;
 	}
-	public void setHomeAdress(HomeAdress homeAdress) {
-		this.homeAdress = homeAdress;
+	public void setHomeAdress(HomeAddress homeAddress) {
+		this.homeAddress = homeAddress;
 	}
 	
 	@Override
 	public String toString() {
-		return fullName + ", " + birthDate + ", " + homeAdress;
+		return fullName + ", " + birthDate + ", " + homeAddress;
 	}
         
 	
