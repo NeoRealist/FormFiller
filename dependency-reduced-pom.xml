@@ -7,6 +7,10 @@
   <build>
     <resources>
       <resource>
+        <targetPath>resources</targetPath>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
         <directory>src/main/resources</directory>
         <includes>
           <include>**/*.fxml</include>

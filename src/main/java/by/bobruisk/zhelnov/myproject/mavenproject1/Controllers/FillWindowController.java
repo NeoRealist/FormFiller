@@ -200,7 +200,11 @@ public class FillWindowController {
             System.out.println(patient);
             checkingPatientFields(patient);
               Workbook workbook = new Workbook();
-              workbook.loadFromFile("src/main/resources/by/bobruisk/zhelnov/myproject/mavenproject1/Original.xlsx");              
+//              workbook.loadFromFile("src/main/resources/by/bobruisk/zhelnov/myproject/mavenproject1/Original.xlsx");
+              workbook.loadFromFile(System.getProperty("user.home") + "/Documents/NetBeansProjects/mavenproject1/src/main/resources/by/bobruisk/zhelnov/myproject/mavenproject1/Original.xlsx");
+
+
+ 
 
               fillPatientFieldsInWorkbook(patient, workbook);
               fillDoctorFieldInWorkbook(workbook);

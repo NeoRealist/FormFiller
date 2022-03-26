@@ -149,6 +149,10 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
+				<targetPath>resources</targetPath>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
 				<includes>
 					<include>**/*.fxml</include>
 					<include>**/*.xlsx</include>
