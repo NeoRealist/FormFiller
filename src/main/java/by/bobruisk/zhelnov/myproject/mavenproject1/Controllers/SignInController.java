@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package by.bobruisk.zhelnov.myproject.mavenproject1.Controllers;
 
 /**
@@ -74,7 +70,8 @@ public class SignInController {
 
     }
     
-    private void signIn(String loginText,String password) {
+    private void signIn(String loginText,String password) throws IOException {
+    	App.setRoot("fillWindow");
     	DatabaseHandler dbHandler = new DatabaseHandler();
     	
     	User user = new User();

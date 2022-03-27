@@ -17,15 +17,15 @@ import by.bobruisk.zhelnov.myproject.mavenproject1.Patient;
 
 
 import java.io.File;
+
 import java.io.IOException;
+import java.io.InputStream;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.ResourceBundle;
-
-
-
-
 
 import javafx.collections.FXCollections;
 
@@ -200,20 +200,23 @@ public class FillWindowController {
             System.out.println(patient);
             checkingPatientFields(patient);
               Workbook workbook = new Workbook();
-//              workbook.loadFromFile("src/main/resources/by/bobruisk/zhelnov/myproject/mavenproject1/Original.xlsx");
-              workbook.loadFromFile(System.getProperty("user.home") + "/Documents/NetBeansProjects/mavenproject1/src/main/resources/by/bobruisk/zhelnov/myproject/mavenproject1/Original.xlsx");
+            
+              InputStream is = App.class.getResourceAsStream("Original.xlsx");
+              
+              workbook.loadFromStream(is);
 
 
+              
  
 
               fillPatientFieldsInWorkbook(patient, workbook);
               fillDoctorFieldInWorkbook(workbook);
 
               workbook.calculateAllValue();
-              workbook.save();              
+             
               workbook.saveToFile(fileForPrint.getAbsolutePath(),FileFormat.Version2013);
               
-//        		File f = new File("C:/Users/Anton/Desktop/Copy.xlsx");
+
               FillFileForPrint(workbook,fileForPrint);
 
         		Printer p = new Printer();
@@ -305,27 +308,26 @@ public class FillWindowController {
         private void FillFileForPrint(Workbook originalWorkbook,File fileForPrint) {
         	Workbook workbookForPrint = originalWorkbook;
         	
-        		List<CheckBox> checkboxes = new ArrayList<>();
+        	List<CheckBox> checkboxes = new ArrayList<>();
         		checkboxes.add(GBT_GU_GluAndChol_ECG_CB);
         		checkboxes.add(BC_Coag_CB);
         		checkboxes.add(RW_PCR_CB);
         		
-//        		через отрицание, потому что по другому терялись поля печати        		
-        		for (CheckBox checkBox : checkboxes) {
-        			if(!checkBox.isSelected()) {
-        				workbookForPrint.getWorksheets().get(checkboxes.indexOf(checkBox)).remove();   				
+        		int indexForDelete = 0;
+        		for (int i = 0; i < checkboxes.size(); i++) {
+        			if(!checkboxes.get(i).isSelected()) {
+        				workbookForPrint.getWorksheets().get(checkboxes.indexOf(checkboxes.get(indexForDelete))).remove();
+        			}else {
+        				indexForDelete++;
         			}
-//        			System.out.println( checkBox.getText() + " : " +  checkBox.isSelected() + " Лист номер: " + (checkboxes.indexOf(checkBox)+1));
-				}
-        		
+					
+				}   		
+
         	workbookForPrint.saveToFile(fileForPrint.getAbsolutePath());	
         		
         }
+   	
 
-        
-     
-         
-                
 
 
 }

@@ -10,7 +10,12 @@ package by.bobruisk.zhelnov.myproject.mavenproject1.Exceptions;
  */
 public class IncorrectDataException extends Exception{
     
-    		public IncorrectDataException(String message) {
+    		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+			public IncorrectDataException(String message) {
 			super(message);
 		}
 }
