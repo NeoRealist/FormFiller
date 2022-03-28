@@ -5,6 +5,7 @@ package by.bobruisk.zhelnov.myproject.mavenproject1.Controllers;
  * @author Anton
  */
 import by.bobruisk.zhelnov.myproject.mavenproject1.App;
+import by.bobruisk.zhelnov.myproject.mavenproject1.FullName;
 import by.bobruisk.zhelnov.myproject.mavenproject1.User;
 import by.bobruisk.zhelnov.myproject.mavenproject1.Controllers.dbcontrollers.DatabaseHandler;
 
@@ -21,7 +22,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class SignInController {
-
+	
+	private static User user;
+	
     @FXML
     private ResourceBundle resources;
 
@@ -42,6 +45,8 @@ public class SignInController {
 
     @FXML
     private Button singInButton;
+    
+    
     
     @FXML
     private void switchToFillWindow() throws IOException {
@@ -66,23 +71,31 @@ public class SignInController {
         assert singInButton != null : "fx:id=\"singInButton\" was not injected: check your FXML file 'signIN.fxml'.";
         
         loginField.setText("example@tut.by");
-        passwordField.setText("Желнов");
+        passwordField.setText("12345678");
 
     }
+
     
     private void signIn(String loginText,String password) throws IOException {
-    	App.setRoot("fillWindow");
+//    	App.setRoot("fillWindow");
     	DatabaseHandler dbHandler = new DatabaseHandler();
     	
     	User user = new User();
+    	
+//    	FullName fullName = new FullName("Желнов", "Антон", "Олегович");
+//    	user.setFullName(fullName);
     	user.setEmail(loginText);
     	user.setPassword(password);
     	
-    	ResultSet resultSet = dbHandler.getUser(user);
+    	ResultSet resultSet = dbHandler.hasUser(loginText, password);
+    	
     	
     	try {
 			if(resultSet.next()) {
+				setUser(resultSet, user);
+
 				System.out.println("Success!");
+
 				App.setRoot("fillWindow");
 			} 
 			
@@ -91,6 +104,25 @@ public class SignInController {
 			e.printStackTrace();
 		}
     	
+    	
     }
+
+	
+	private void setUser(ResultSet resultSet, User user) throws SQLException {
+		user.setId(resultSet.getInt(1));
+		user.setFullName(new FullName(resultSet.getString(3),resultSet.getString(2),resultSet.getString(4)));
+		user.setOrganizationName(resultSet.getString(5));
+		user.setDepartmentName(resultSet.getString(6));
+		user.setSpeciality(resultSet.getString(7));
+		user.setEmail(resultSet.getString(8));
+		user.setPassword(resultSet.getString(9));
+		
+		this.user = user;
+		
+	}
+	public static User getUser() {
+		return user;
+	}
+    
 
 }

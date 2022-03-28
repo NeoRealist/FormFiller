@@ -9,6 +9,7 @@ package by.bobruisk.zhelnov.myproject.mavenproject1;
  * @author Anton
  */
 public class User {
+	private long id;
     private FullName fullName;
     private String email;    
     private String speciality;
@@ -28,7 +29,15 @@ public class User {
 
     }
     
-    /**
+    
+    
+    public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	/**
      * @return the fullName
      */
     public FullName getFullName() {
@@ -111,10 +120,11 @@ public class User {
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
     }
+    
 
     @Override
     public String toString() {
-        return fullName + ", email=" + email + ", speciality=" + speciality + ", organizationName=" + organizationName + ", departmentName=" + departmentName + ", password=" + password;
+        return "id=" + id + ", fullname=" + fullName + ", email=" + email + ", speciality=" + speciality + ", organizationName=" + organizationName + ", departmentName=" + departmentName + ", password=" + password;
     }
     
     

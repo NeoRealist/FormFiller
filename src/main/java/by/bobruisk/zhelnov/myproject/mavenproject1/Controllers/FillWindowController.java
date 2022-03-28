@@ -15,7 +15,6 @@ import by.bobruisk.zhelnov.myproject.mavenproject1.FullName;
 import by.bobruisk.zhelnov.myproject.mavenproject1.HomeAddress;
 import by.bobruisk.zhelnov.myproject.mavenproject1.Patient;
 
-
 import java.io.File;
 
 import java.io.IOException;
@@ -41,15 +40,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-
 import com.spire.xls.FileFormat;
 
 import com.spire.xls.Workbook;
 import com.spire.xls.Worksheet;
 
-
-
 public class FillWindowController {
+
+	boolean hasErrors;
 
 	@FXML
 	private ResourceBundle resources;
@@ -130,29 +128,32 @@ public class FillWindowController {
 	private void switchToMainWindow() throws IOException {
 		App.setRoot("mainWindow");
 	}
-         @FXML
-        private ComboBox<Integer> dayComboBox;
-         
-        @FXML
-        private ComboBox<Integer> monthComboBox;
-        
 
+	@FXML
+	private ComboBox<Integer> dayComboBox;
+
+	@FXML
+	private ComboBox<Integer> monthComboBox;
 
 	@FXML
 	void initialize() {
-            ObservableList<Integer> dayList = FXCollections.observableArrayList(1,2,3,4,5,6,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31);
-            dayComboBox.setItems(dayList);
-            dayComboBox.setValue(0);
-            ObservableList<Integer> monthList = FXCollections.observableArrayList(1,2,3,4,5,6,6,7,8,9,10,11,12);
-            monthComboBox.setItems(monthList);
-            monthComboBox.setValue(0);
-            System.out.println();
-            
-            organizationTextField.setText("УЗ Бобруйска городская поликлиника № 100");
-            departmentTextField.setText("ООВП №2");
-            doctorTextField.setText("Антон Желнов");
-            surveyReasonTextField.setText("Обследование");
-            
+		ObservableList<Integer> dayList = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 6, 7, 8, 9, 10, 11, 12,
+				13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31);
+		dayComboBox.setItems(dayList);
+		dayComboBox.setValue(0);
+		ObservableList<Integer> monthList = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 6, 7, 8, 9, 10, 11, 12);
+		monthComboBox.setItems(monthList);
+		monthComboBox.setValue(0);
+		System.out.println();
+
+		userNameField.setText(SignInController.getUser().getFullName().getName() + " "
+				+ SignInController.getUser().getFullName().getSurname());
+		organizationTextField.setText(SignInController.getUser().getOrganizationName());
+		departmentTextField.setText(SignInController.getUser().getDepartmentName());
+		doctorTextField.setText(SignInController.getUser().getFullName().getName().substring(0, 1) + "."
+				+ SignInController.getUser().getFullName().getPatronymic().substring(0, 1) + ". "
+				+ SignInController.getUser().getFullName().getSurname());
+		surveyReasonTextField.setText("Обследование");
 
 		assert BC_Coag_CB != null : "fx:id=\"BC_Coag_CB\" was not injected: check your FXML file 'fillWindow.fxml'.";
 		assert GBT_GU_GluAndChol_ECG_CB != null
@@ -191,143 +192,132 @@ public class FillWindowController {
 				: "fx:id=\"yearOfTheBirthdayTextField\" was not injected: check your FXML file 'fillWindow.fxml'.";
 
 	}
-        
-        public void onAction() throws Exception{
-        	
-        	File fileForPrint = new File(System.getProperty("user.home") + "/Desktop/Print.xlsx");
-        		
-            Patient patient = getPatient();                            
-            System.out.println(patient);
-            checkingPatientFields(patient);
-              Workbook workbook = new Workbook();
-            
-              InputStream is = App.class.getResourceAsStream("Original.xlsx");
-              
-              workbook.loadFromStream(is);
 
+	public void onAction() throws Exception {
 
-              
- 
+		File fileForPrint = new File(System.getProperty("user.home") + "/Desktop/Print.xlsx");
 
-              fillPatientFieldsInWorkbook(patient, workbook);
-              fillDoctorFieldInWorkbook(workbook);
+		Patient patient = getPatient();
+		System.out.println(patient);
+		checkingPatientFields(patient);
+		if(!hasErrors) {
+		FillFileForPrint(patient, fileForPrint);
 
-              workbook.calculateAllValue();
-             
-              workbook.saveToFile(fileForPrint.getAbsolutePath(),FileFormat.Version2013);
-              
+		Printer p = new Printer();
+		p.printExcelFile(fileForPrint);
+		}
 
-              FillFileForPrint(workbook,fileForPrint);
-
-        		Printer p = new Printer();
-        		p.printExcelFile(fileForPrint);     		
-
-            
-            
-        }
+	}
 
 	public Patient getPatient() {
 
-            try{
-		FullName fullName = new FullName(surnameTextField.getText(), nameTextField.getText(),
-				patromymicTextField.getText());
-		BirthDate birthDate = new BirthDate(dayComboBox.getValue(),
-				monthComboBox.getValue(),
-				Integer.parseInt(yearOfTheBirthdayTextField.getText()));
+		try {
+			FullName fullName = new FullName(surnameTextField.getText(), nameTextField.getText(),
+					patromymicTextField.getText());
+			BirthDate birthDate = new BirthDate(dayComboBox.getValue(), monthComboBox.getValue(),
+					Integer.parseInt(yearOfTheBirthdayTextField.getText()));
 //		HomeAddress homeAdress = new HomeAddress(streetTextField.getText(),
 //				Integer.parseInt(homeNumberTextField.getText()), buildNumberTextField.getText(),
 //				Integer.parseInt(flatNumberTextField.getText()));
-		HomeAddress homeAddress = new HomeAddress();
-		homeAddress.setStreetName(streetTextField.getText());
-		if(homeNumberTextField.getText().equals("")) {
-		homeAddress.setHomeNumber(0);
-		} else {
-			homeAddress.setHomeNumber(Integer.parseInt(homeNumberTextField.getText()));
+			HomeAddress homeAddress = new HomeAddress();
+			homeAddress.setStreetName(streetTextField.getText());
+			if (homeNumberTextField.getText().equals("")) {
+				homeAddress.setHomeNumber(0);
+			} else {
+				homeAddress.setHomeNumber(Integer.parseInt(homeNumberTextField.getText()));
+			}
+			homeAddress.setHomeBuildingNumber(buildNumberTextField.getText());
+			if (flatNumberTextField.getText().equals("")) {
+				homeAddress.setFlat(0);
+			} else {
+				homeAddress.setFlat(Integer.parseInt(flatNumberTextField.getText()));
+			}
+
+			Patient patient = new Patient(fullName, birthDate, homeAddress);
+
+			return patient;
+		} catch (NumberFormatException e) {
+			OtherCharsInNumericFields.show();
+		} catch (IncorrectNumberException ex) {
+			FieldsFilledOutIncorrectly.show("Filed Year equals 0");
 		}
-		homeAddress.setHomeBuildingNumber(buildNumberTextField.getText());
-		if(flatNumberTextField.getText().equals("")) {
-		homeAddress.setFlat(0);
+		return null;
+
+	}
+
+	private void checkingPatientFields(Patient patient) {
+		ExceptionChecker ec = new ExceptionChecker();
+		ec.checkAll(patient);
+		if (ec.hasErrors) {
+			hasErrors =true;
+			FieldsFilledOutIncorrectly.show(ec.getErrorMessage());
 		} else {
-			homeAddress.setFlat(Integer.parseInt(flatNumberTextField.getText()));
+			AllRight.show();
+			hasErrors = false;
 		}
-		
-		
-                Patient patient = new Patient(fullName, birthDate, homeAddress);
-                
-                return patient;
-            }
-            catch (NumberFormatException e){
-                OtherCharsInNumericFields.show();               
-            } catch (IncorrectNumberException ex) {
-                FieldsFilledOutIncorrectly.show("123");                
-            }
-            return null;              
-  
-        }    
-        
-        private void checkingPatientFields(Patient patient){            
-                ExceptionChecker ec = new ExceptionChecker();
-                ec.checkAll(patient);
-                if(ec.hasErrors){
-                FieldsFilledOutIncorrectly.show(ec.getErrorMessage());}
-                else{
-                    AllRight.show();
-                }
-    
-        }
-        
-        private void fillDoctorFieldInWorkbook(Workbook workbook) {
-        	Worksheet worksheet = workbook.getWorksheets().get(0);
-        	worksheet.getCellRange("A1").setText(organizationTextField.getText());
-        	worksheet.getCellRange("C54").setText("!Помощник врача!");
-        	worksheet.getCellRange("F54").setText(doctorTextField.getText());
-        	worksheet.getCellRange("K54").setText(surveyReasonTextField.getText());
-        	worksheet.getCellRange("L55").setText(departmentTextField.getText());
-        	
-        }
-        
-        private void fillPatientFieldsInWorkbook(Patient patient, Workbook workbook) {
-        	//TODO лучше использовать поля напрямую, на случай
-        	// если будет ошибка при создании Patient
-        	Worksheet worksheet = workbook.getWorksheets().get(0);
-        	worksheet.getCellRange("C55").setText(patient.getFullName().getSurname());
-        	worksheet.getCellRange("E55").setText(patient.getFullName().getName());
-        	worksheet.getCellRange("F55").setText(patient.getFullName().getPatronymic());        	
-        	worksheet.getCellRange("D56").setText(String.valueOf(patient.getBirthDate().getDay()));
-        	worksheet.getCellRange("E56").setText(String.valueOf(patient.getBirthDate().getMonth()));
-        	worksheet.getCellRange("F56").setText(String.valueOf(patient.getBirthDate().getYear()));
-        	worksheet.getCellRange("C57").setText(String.valueOf(patient.getHomeAdress().getStreetName()));
-        	worksheet.getCellRange("E57").setText(String.valueOf(patient.getHomeAdress().getHomeNumber()));
-        	worksheet.getCellRange("F57").setText(String.valueOf(patient.getHomeAdress().getHomeBuildingNumber()));
-        	worksheet.getCellRange("G57").setText(String.valueOf(patient.getHomeAdress().getFlatNumber()));   	
-        	
-        	
-        	
-        }
-        
-        private void FillFileForPrint(Workbook originalWorkbook,File fileForPrint) {
-        	Workbook workbookForPrint = originalWorkbook;
-        	
-        	List<CheckBox> checkboxes = new ArrayList<>();
-        		checkboxes.add(GBT_GU_GluAndChol_ECG_CB);
-        		checkboxes.add(BC_Coag_CB);
-        		checkboxes.add(RW_PCR_CB);
-        		
-        		int indexForDelete = 0;
-        		for (int i = 0; i < checkboxes.size(); i++) {
-        			if(!checkboxes.get(i).isSelected()) {
-        				workbookForPrint.getWorksheets().get(checkboxes.indexOf(checkboxes.get(indexForDelete))).remove();
-        			}else {
-        				indexForDelete++;
-        			}
-					
-				}   		
 
-        	workbookForPrint.saveToFile(fileForPrint.getAbsolutePath());	
-        		
-        }
-   	
+	}
 
+	private void fillDoctorFieldInWorkbook(Workbook workbook) {
+		Worksheet worksheet = workbook.getWorksheets().get(0);
+		worksheet.getCellRange("A1").setText(organizationTextField.getText());
+		worksheet.getCellRange("C54").setText("!Помощник врача!");
+		worksheet.getCellRange("F54").setText(doctorTextField.getText());
+		worksheet.getCellRange("K54").setText(surveyReasonTextField.getText());
+		worksheet.getCellRange("L55").setText(departmentTextField.getText());
 
+	}
+
+	private void fillPatientFieldsInWorkbook(Patient patient, Workbook workbook) {
+		// TODO лучше использовать поля напрямую, на случай
+		// если будет ошибка при создании Patient
+		Worksheet worksheet = workbook.getWorksheets().get(0);
+		worksheet.getCellRange("C55").setText(patient.getFullName().getSurname());
+		worksheet.getCellRange("E55").setText(patient.getFullName().getName());
+		worksheet.getCellRange("F55").setText(patient.getFullName().getPatronymic());
+		worksheet.getCellRange("D56").setText(String.valueOf(patient.getBirthDate().getDay()));
+		worksheet.getCellRange("E56").setText(String.valueOf(patient.getBirthDate().getMonth()));
+		worksheet.getCellRange("F56").setText(String.valueOf(patient.getBirthDate().getYear()));
+		worksheet.getCellRange("C57").setText(String.valueOf(patient.getHomeAdress().getStreetName()));
+		worksheet.getCellRange("E57").setText(String.valueOf(patient.getHomeAdress().getHomeNumber()));
+		worksheet.getCellRange("F57").setText(String.valueOf(patient.getHomeAdress().getHomeBuildingNumber()));
+		worksheet.getCellRange("G57").setText(String.valueOf(patient.getHomeAdress().getFlatNumber()));
+
+	}
+
+	private void FillFileForPrint(Patient patient, File fileForPrint) {
+		Workbook originalWorkbook = new Workbook();
+
+		InputStream is = App.class.getResourceAsStream("Original.xlsx");
+
+		originalWorkbook.loadFromStream(is);
+
+		fillPatientFieldsInWorkbook(patient, originalWorkbook);
+		fillDoctorFieldInWorkbook(originalWorkbook);
+
+		originalWorkbook.calculateAllValue();
+
+		originalWorkbook.saveToFile(fileForPrint.getAbsolutePath(), FileFormat.Version2013);
+
+		Workbook workbookForPrint = originalWorkbook;
+
+		List<CheckBox> checkboxes = new ArrayList<>();
+		checkboxes.add(GBT_GU_GluAndChol_ECG_CB);
+		checkboxes.add(BC_Coag_CB);
+		checkboxes.add(RW_PCR_CB);
+
+		int indexForDelete = 0;
+		for (int i = 0; i < checkboxes.size(); i++) {
+			if (!checkboxes.get(i).isSelected()) {
+				workbookForPrint.getWorksheets().get(checkboxes.indexOf(checkboxes.get(indexForDelete))).remove();
+			} else {
+				indexForDelete++;
+			}
+
+		}
+
+		workbookForPrint.saveToFile(fileForPrint.getAbsolutePath());
+
+	}
 
 }
