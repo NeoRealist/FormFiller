@@ -86,6 +86,7 @@ public class SignUpController {
 
 	@FXML
 	void initialize() {
+		loginText.setText(emailField.getText());
 		assert departmentTextField != null
 				: "fx:id=\"departmentTextField\" was not injected: check your FXML file 'signUp.fxml'.";
 		assert emailField != null : "fx:id=\"emailField\" was not injected: check your FXML file 'signUp.fxml'.";

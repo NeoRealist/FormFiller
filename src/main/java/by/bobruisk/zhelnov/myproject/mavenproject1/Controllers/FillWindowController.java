@@ -263,8 +263,10 @@ public class FillWindowController {
 	private void fillDoctorFieldInWorkbook(Workbook workbook) {
 		Worksheet worksheet = workbook.getWorksheets().get(0);
 		worksheet.getCellRange("A1").setText(organizationTextField.getText());
-		worksheet.getCellRange("C54").setText("!Помощник врача!");
-		worksheet.getCellRange("F54").setText(doctorTextField.getText());
+		worksheet.getCellRange("C54").setText(SignInController.getUser().getSpeciality());
+		worksheet.getCellRange("F54").setText(SignInController.getUser().getFullName().getName().substring(0, 1) + "."
+				+ SignInController.getUser().getFullName().getPatronymic().substring(0, 1) + ". "
+				+ SignInController.getUser().getFullName().getSurname());
 		worksheet.getCellRange("K54").setText(surveyReasonTextField.getText());
 		worksheet.getCellRange("L55").setText(departmentTextField.getText());
 

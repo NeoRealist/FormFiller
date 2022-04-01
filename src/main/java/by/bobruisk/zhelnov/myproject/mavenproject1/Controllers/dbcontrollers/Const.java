@@ -1,6 +1,8 @@
 package by.bobruisk.zhelnov.myproject.mavenproject1.Controllers.dbcontrollers;
 
 public class Const {
+	
+	
 	public static final String USER_TABLE = "users";
 	
 	public static final String USER_ID = "idusers";
