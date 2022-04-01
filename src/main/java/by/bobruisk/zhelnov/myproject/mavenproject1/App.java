@@ -14,36 +14,31 @@ import java.util.ResourceBundle;
  * JavaFX App
  */
 public class App extends Application {
-	
-	
-	
-	private ResourceBundle bundle = ResourceBundle.getBundle("resources.by.bobruisk.zhelnov.myproject.mavenproject1.i18n.language");	
 
-    private static Scene scene;
+	private static Scene scene;
 
-    @Override
-    public void start(Stage stage) throws IOException {	
-    	Locale currentLocale = Locale.getDefault();
-//    	Locale currentLocale = new Locale("en_uk");
-    	bundle =  ResourceBundle.getBundle("resources.by.bobruisk.zhelnov.myproject.mavenproject1.i18n.language", currentLocale);    	
-        scene = new Scene(loadFXML("mainWindow", bundle));
-        stage.setScene(scene);
-        stage.show();
-    }
+	@Override
+	public void start(Stage stage) throws IOException {
+		Locale currentLocale = new Locale("ru_ru");
 
-    public static void setRoot(String fxml, ResourceBundle bundle ) throws IOException {
-        scene.setRoot(loadFXML(fxml,bundle));
-    }
+		ResourceBundle bundle = ResourceBundle
+				.getBundle("resources.by.bobruisk.zhelnov.myproject.mavenproject1.i18n.language", currentLocale);
+		scene = new Scene(loadFXML("mainWindow", bundle));
+		stage.setScene(scene);
+		stage.show();
+	}
 
-    private static Parent loadFXML(String fxml, ResourceBundle bundle) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"), bundle);
-        return fxmlLoader.load();
-    }
+	public static void setRoot(String fxml, ResourceBundle bundle) throws IOException {
+		scene.setRoot(loadFXML(fxml, bundle));
+	}
 
-    public static void main(String[] args) {
-        launch();
-    }
+	private static Parent loadFXML(String fxml, ResourceBundle bundle) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"), bundle);
+		return fxmlLoader.load();
+	}
 
-
+	public static void main(String[] args) {
+		launch();
+	}
 
 }

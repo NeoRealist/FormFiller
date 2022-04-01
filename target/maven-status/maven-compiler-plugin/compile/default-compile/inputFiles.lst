@@ -9,10 +9,9 @@ C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruis
 C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\Controllers\MainWindowController.java
 C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\BirthDate.java
 C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\Controllers\dbcontrollers\DatabaseHandler.java
-C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\SecondaryController.java
 C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\MyAlert.java
+C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\Controllers\SearchController.java
 C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\Controllers\MessageCreator.java
-C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\PrimaryController.java
 C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\module-info.java
 C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\alerts\AllRight.java
 C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\App.java
@@ -21,7 +20,6 @@ C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruis
 C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\Controllers\FillWindowController.java
 C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\alerts\OtherCharsInNumericFields.java
 C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\Controllers\dbcontrollers\Configs.java
-C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\Controller.java
 C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\alerts\PasswordDoNotMatch.java
 C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\Exceptions\IncorrectDataException.java
 C:\Users\Anton\Documents\NetBeansProjects\mavenproject1\src\main\java\by\bobruisk\zhelnov\myproject\mavenproject1\helpers\Printer.java

@@ -39,12 +39,12 @@ public class MainWindowController extends App {
 
 	@FXML
 	private void switchToSignUp() throws IOException {
-        App.setRoot("signUp", resources);
+		App.setRoot("signUp", resources);
 	}
 
 	@FXML
 	private void switchToSignIn() throws IOException {
-        App.setRoot("signIn",resources);
+		App.setRoot("signIn", resources);
 
 	}
 
@@ -69,7 +69,6 @@ public class MainWindowController extends App {
 
 	}
 
-	
 	private static void setLanguage(ChoiceBox<String> language, Locale locale) {
 		if ("en_uk".equalsIgnoreCase(locale.toString())) {
 			language.setValue("English");
