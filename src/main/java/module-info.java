@@ -6,6 +6,7 @@ module by.bobruisk.zhelnov.myproject.mavenproject1 {
 	requires org.apache.poi.ooxml;
 	requires java.sql;
 	requires javafx.graphics;
+	requires javafx.base;
 //	requires spire.xls;
 
 

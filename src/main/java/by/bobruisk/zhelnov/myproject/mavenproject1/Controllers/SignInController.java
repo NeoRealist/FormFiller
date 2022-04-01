@@ -1,9 +1,5 @@
 package by.bobruisk.zhelnov.myproject.mavenproject1.Controllers;
 
-/**
- *
- * @author Anton
- */
 import by.bobruisk.zhelnov.myproject.mavenproject1.App;
 import by.bobruisk.zhelnov.myproject.mavenproject1.FullName;
 import by.bobruisk.zhelnov.myproject.mavenproject1.User;
@@ -14,6 +10,8 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -96,7 +94,7 @@ public class SignInController {
 
 				System.out.println("Success!");
 
-				App.setRoot("fillWindow");
+				App.setRoot("fillWindow",resources);
 			} 
 			
 		} catch (SQLException | IOException e) {

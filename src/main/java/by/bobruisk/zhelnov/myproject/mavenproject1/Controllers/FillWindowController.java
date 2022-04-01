@@ -45,6 +45,8 @@ import com.spire.xls.FileFormat;
 import com.spire.xls.Workbook;
 import com.spire.xls.Worksheet;
 
+
+
 public class FillWindowController {
 
 	boolean hasErrors;
@@ -126,7 +128,7 @@ public class FillWindowController {
 
 	@FXML
 	private void switchToMainWindow() throws IOException {
-		App.setRoot("mainWindow");
+		App.setRoot("mainWindow",resources);
 	}
 
 	@FXML
@@ -150,7 +152,7 @@ public class FillWindowController {
 				+ SignInController.getUser().getFullName().getSurname());
 		organizationTextField.setText(SignInController.getUser().getOrganizationName());
 		departmentTextField.setText(SignInController.getUser().getDepartmentName());
-		doctorTextField.setText(SignInController.getUser().getFullName().getName().substring(0, 1) + "."
+		doctorTextField.setText(SignInController.getUser().getSpeciality() +" " +  SignInController.getUser().getFullName().getName().substring(0, 1) + "."
 				+ SignInController.getUser().getFullName().getPatronymic().substring(0, 1) + ". "
 				+ SignInController.getUser().getFullName().getSurname());
 		surveyReasonTextField.setText("Обследование");

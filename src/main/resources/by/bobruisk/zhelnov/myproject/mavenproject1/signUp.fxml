@@ -9,33 +9,33 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.bobruisk.zhelnov.myproject.mavenproject1.Controllers.SignUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.bobruisk.zhelnov.myproject.mavenproject1.Controllers.SignUpController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="93.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
-      <TextField fx:id="nameTextField" layoutX="56.0" layoutY="117.0" promptText="Иван" />
-      <TextField fx:id="surnameTextField" layoutX="224.0" layoutY="117.0" promptText="Иванов" />
-      <TextField fx:id="patronymicTextField" layoutX="394.0" layoutY="117.0" promptText="Иванович" />
-      <TextField fx:id="organizationTextField" layoutX="53.0" layoutY="159.0" prefHeight="26.0" prefWidth="490.0" promptText="Учреждение здравоохранения &quot;Бобруйская городская поликлиника №7&quot;" />
-      <TextField fx:id="departmentTextField" layoutX="55.0" layoutY="203.0" prefHeight="26.0" prefWidth="201.0" promptText="Общей врачебной практики" />
-      <TextField fx:id="specialityTextField" layoutX="365.0" layoutY="203.0" prefHeight="25.0" prefWidth="180.0" promptText="Врач общей практики" />
-      <TextField fx:id="emailField" layoutX="66.0" layoutY="251.0" prefHeight="25.0" prefWidth="180.0" promptText="example@mail.com" />
+      <TextField fx:id="nameTextField" layoutX="56.0" layoutY="117.0" promptText="%exampleName" />
+      <TextField fx:id="surnameTextField" layoutX="224.0" layoutY="117.0" promptText="%exampleSurname" />
+      <TextField fx:id="patronymicTextField" layoutX="394.0" layoutY="117.0" promptText="%examplePatronymic" />
+      <TextField fx:id="organizationTextField" layoutX="53.0" layoutY="159.0" prefHeight="26.0" prefWidth="490.0" promptText="%exampleOrganization" />
+      <TextField fx:id="departmentTextField" layoutX="55.0" layoutY="203.0" prefHeight="26.0" prefWidth="201.0" promptText="%exampleDepartment" />
+      <TextField fx:id="specialityTextField" layoutX="365.0" layoutY="203.0" prefHeight="25.0" prefWidth="180.0" promptText="%exampleSpeciality" />
+      <TextField fx:id="emailField" layoutX="66.0" layoutY="251.0" prefHeight="25.0" prefWidth="180.0" promptText="%exampleEmail" />
       <PasswordField fx:id="passwordField" layoutX="369.0" layoutY="251.0" />
       <PasswordField fx:id="passwordRepeatField" layoutX="370.0" layoutY="300.0" />
-      <Button layoutX="211.0" layoutY="334.0" mnemonicParsing="false" onAction="#switchToMainWindow" prefHeight="52.0" prefWidth="173.0" text="Sign up" />
-      <Label layoutX="98.0" layoutY="100.0" text="Name" />
-      <Label layoutX="274.0" layoutY="100.0" text="Surname" />
-      <Label layoutX="444.0" layoutY="100.0" text="Patronymic" />
-      <Label layoutX="263.0" layoutY="142.0" text="Organization" />
-      <Label layoutX="111.0" layoutY="185.0" text="Department" />
-      <Label layoutX="429.0" layoutY="185.0" text="Speciality" />
+      <Button layoutX="211.0" layoutY="334.0" mnemonicParsing="false" onAction="#switchToMainWindow" prefHeight="52.0" prefWidth="173.0" text="%button.SignUp" />
+      <Label layoutX="98.0" layoutY="100.0" text="%nameLabel" />
+      <Label layoutX="274.0" layoutY="100.0" text="%surnameLabel" />
+      <Label layoutX="444.0" layoutY="100.0" text="%patronymicLabel" />
+      <Label layoutX="263.0" layoutY="142.0" text="%organizationLabel" />
+      <Label layoutX="111.0" layoutY="185.0" text="%departmentLabel" />
+      <Label layoutX="429.0" layoutY="185.0" text="%specialityLabel" />
       <Label fx:id="formFillerLabel" layoutX="182.0" layoutY="14.0" text="Form Filler" textFill="#00ff33">
          <font>
             <Font name="Times New Roman" size="51.0" />
          </font></Label>
-      <Label layoutX="389.0" layoutY="229.0" text="Enter your password" />
-      <Label layoutX="382.0" layoutY="283.0" text="Confirm your password" />
-      <Label layoutX="87.0" layoutY="229.0" text="Enter your email" />
-      <Label layoutX="82.0" layoutY="283.0" prefHeight="17.0" prefWidth="124.0" text="Your login to sign in" />
+      <Label layoutX="389.0" layoutY="229.0" text="%enterYourPasswordLabel" />
+      <Label layoutX="382.0" layoutY="283.0" text="%confirmYourPasswordLabel" />
+      <Label layoutX="87.0" layoutY="229.0" text="%enterYourEmailLabel" />
+      <Label layoutX="82.0" layoutY="283.0" prefHeight="17.0" prefWidth="124.0" text="%loginToSignInLabel" />
       <Text fx:id="loginText" layoutX="70.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="user login" textAlignment="CENTER" wrappingWidth="149.0" />
    </children>
 </AnchorPane>

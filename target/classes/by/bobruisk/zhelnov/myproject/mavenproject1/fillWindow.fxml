@@ -10,12 +10,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="fillWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.bobruisk.zhelnov.myproject.mavenproject1.Controllers.FillWindowController">
+<AnchorPane fx:id="fillWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.bobruisk.zhelnov.myproject.mavenproject1.Controllers.FillWindowController">
 	<children>
       <Rectangle fx:id="blueRectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="93.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
-		<TextField fx:id="surnameTextField" layoutX="36.0" layoutY="187.0" promptText="Иванов" />
-		<TextField fx:id="nameTextField" layoutX="219.0" layoutY="187.0" promptText="Иван" />
-		<TextField fx:id="patromymicTextField" layoutX="380.0" layoutY="187.0" promptText="Иванович" />
+		<TextField fx:id="surnameTextField" layoutX="36.0" layoutY="187.0" promptText="%exampleSurname" />
+		<TextField fx:id="nameTextField" layoutX="219.0" layoutY="187.0" promptText="%exampleName" />
+		<TextField fx:id="patromymicTextField" layoutX="380.0" layoutY="187.0" promptText="%examplePatronymic" />
       <ComboBox fx:id="dayComboBox" layoutX="14.0" layoutY="244.0" prefHeight="25.0" prefWidth="60.0" />
       <ComboBox fx:id="monthComboBox" layoutX="86.0" layoutY="244.0" prefHeight="25.0" prefWidth="60.0" />
 		<TextField fx:id="yearOfTheBirthdayTextField" layoutX="154.0" layoutY="244.0" prefHeight="22.0" prefWidth="52.0" promptText="1970" />
@@ -27,13 +27,13 @@
 		<CheckBox fx:id="GBT_GU_GluAndChol_ECG_CB" layoutX="75.0" layoutY="324.0" mnemonicParsing="false" text="ОАМ + ОАК + Глюкоза и холестерин + ЭКГ" />
 		<CheckBox fx:id="BC_Coag_CB" layoutX="75.0" layoutY="340.0" mnemonicParsing="false" text="Биохимия + Коагулограмма" />
 		<CheckBox fx:id="RW_PCR_CB" layoutX="75.0" layoutY="356.0" mnemonicParsing="false" text="Сифилис (RW) + ПЦР на Covid-19" />
-		<Button fx:id="printButton" layoutX="459.0" layoutY="325.0" mnemonicParsing="false" onAction="#onAction" prefHeight="46.0" prefWidth="89.0" text="Печать" />
-      <TextField fx:id="organizationTextField" layoutX="238.0" layoutY="94.0" prefHeight="25.0" prefWidth="260.0" promptText="УЗ &quot;Бобруйская городская поликлиника №7&quot;" />
-		<TextField fx:id="departmentTextField" layoutX="89.0" layoutY="140.0" promptText="ООВП № 2" />
+		<Button fx:id="printButton" layoutX="389.0" layoutY="333.0" mnemonicParsing="false" onAction="#onAction" prefHeight="46.0" prefWidth="178.0" text="%button.Print" textAlignment="CENTER" />
+      <TextField fx:id="organizationTextField" layoutX="238.0" layoutY="94.0" prefHeight="25.0" prefWidth="260.0" promptText="%exampleOrganization" />
+		<TextField fx:id="departmentTextField" layoutX="89.0" layoutY="140.0" promptText="%exampleDepartment" />
 		<TextField fx:id="doctorTextField" layoutX="314.0" layoutY="140.0" prefHeight="22.0" prefWidth="192.0" promptText="Антон Желнов" />
-		<Label layoutX="75.0" layoutY="171.0" text="Фамилия" />
-		<Label layoutX="274.0" layoutY="171.0" text="Имя" />
-		<Label layoutX="424.0" layoutY="171.0" text="Отчество" />
+		<Label layoutX="35.0" layoutY="171.0" prefHeight="17.0" prefWidth="149.0" text="%surnameLabel" textAlignment="CENTER" />
+		<Label layoutX="219.0" layoutY="171.0" prefHeight="17.0" prefWidth="149.0" text="%nameLabel" textAlignment="CENTER" />
+		<Label layoutX="381.0" layoutY="171.0" prefHeight="17.0" prefWidth="149.0" text="%patronymicLabel" textAlignment="CENTER" />
 		<Label layoutX="39.0" layoutY="226.0" text="Число" />
 		<Label layoutX="101.0" layoutY="226.0" text="Месяц" />
 		<Label layoutX="170.0" layoutY="226.0" text="Год" />
@@ -42,11 +42,11 @@
 		<Label layoutX="464.0" layoutY="226.0" text="Корпус" />
 		<Label layoutX="514.0" layoutY="226.0" text="Квартира" />
 		<Label layoutX="278.0" layoutY="294.0" text="Повод обследования" />
-		<Label layoutX="133.0" layoutY="119.0" text="Отделение" />
-		<Label layoutX="314.0" layoutY="119.0" text="Врач направивший на исследование" />
-      <Button fx:id="quitButton" cache="true" layoutX="525.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToMainWindow" prefHeight="17.0" prefWidth="51.0" text="Quit" />
+		<Label layoutX="87.0" layoutY="119.0" prefHeight="17.0" prefWidth="149.0" text="%departmentLabel" textAlignment="CENTER" />
+		<Label layoutX="314.0" layoutY="119.0" text="Врач направивший на исследование" textAlignment="CENTER" />
+      <Button fx:id="quitButton" cache="true" layoutX="525.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToMainWindow" prefHeight="17.0" prefWidth="51.0" text="%button.Quit" />
       <Text fx:id="userNameField" layoutX="302.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Name" textAlignment="RIGHT" wrappingWidth="218.0" />
-      <Label layoutX="149.0" layoutY="98.0" text="Организация" />
+      <Label layoutX="118.0" layoutY="98.0" prefHeight="17.0" prefWidth="117.0" text="%organizationLabel" textAlignment="RIGHT" />
       <Label fx:id="formFillerLabel" layoutX="182.0" layoutY="14.0" text="Form Filler" textFill="#00ff33">
          <font>
             <Font name="Times New Roman" size="51.0" />

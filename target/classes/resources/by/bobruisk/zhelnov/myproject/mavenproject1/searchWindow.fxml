@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+ 
+<AnchorPane prefHeight="354.9609375" prefWidth="422.0"
+    xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11" fx:controller="by.bobruisk.zhelnov.myproject.mavenproject1.Controllers.SearchController">
+    <children>
+        <TextField fx:id="searchField" layoutX="14.0" layoutY="14.0"
+            prefWidth="394.0" />
+        <TextArea fx:id="searchResult" disable="false" editable="false"
+            layoutX="14.0" layoutY="45.0" prefHeight="296.0" prefWidth="394.0"
+            wrapText="true" />
+    </children>
+</AnchorPane>
