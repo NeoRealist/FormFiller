@@ -16,6 +16,7 @@
           <include>**/*.fxml</include>
           <include>**/*.xlsx</include>
           <include>**/*.properties</include>
+          <include>**/*.txt</include>
         </includes>
       </resource>
       <resource>
