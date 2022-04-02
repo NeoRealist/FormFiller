@@ -27,6 +27,8 @@ public class Printer {
 					
 					Desktop.getDesktop().print(new File(path));
 					
+					
+					
 		
 
 				

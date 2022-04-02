@@ -4,15 +4,16 @@
  */
 package by.bobruisk.zhelnov.myproject.mavenproject1.Controllers;
 
-
+import by.bobruisk.zhelnov.myproject.mavenproject1.App;
 import by.bobruisk.zhelnov.myproject.mavenproject1.FullName;
 
 import by.bobruisk.zhelnov.myproject.mavenproject1.User;
 import by.bobruisk.zhelnov.myproject.mavenproject1.Controllers.dbcontrollers.DatabaseHandler;
-
+import by.bobruisk.zhelnov.myproject.mavenproject1.alerts.PasswordDoNotMatch;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 
@@ -63,24 +64,19 @@ public class SignUpController {
 	private TextField surnameTextField;
 
 	@FXML
-	private void switchToMainWindow() throws IOException {
+	private void switchToMainWindow() throws IOException, ClassNotFoundException, SQLException {
 		signUpNewUser();
 
-
-
-//        if(passwordField.getText().equals(passwordRepeatField.getText())){
-//        User newUser = new User(
-//                new FullName(surnameTextField.getText(), nameTextField.getText(), patronymicTextField.getText()),
-//                emailField.getText(),
-//                specialityTextField.getText(),
-//                organizationTextField.getText(),
-//                departmentTextField.getText(),
-//                passwordField.getText());
-//        System.out.println(newUser);
-//        App.setRoot("mainWindow");
-//        } else{
-//               PasswordDoNotMatch.show();
-//        }
+		if (passwordField.getText().equals(passwordRepeatField.getText())) {
+			User newUser = new User(
+					new FullName(surnameTextField.getText(), nameTextField.getText(), patronymicTextField.getText()),
+					emailField.getText(), specialityTextField.getText(), organizationTextField.getText(),
+					departmentTextField.getText(), passwordField.getText());
+			System.out.println(newUser);
+			App.setRoot("mainWindow", resources);
+		} else {
+			PasswordDoNotMatch.show();
+		}
 
 	}
 
@@ -108,7 +104,7 @@ public class SignUpController {
 
 	}
 
-	private void signUpNewUser() {
+	private void signUpNewUser() throws ClassNotFoundException, SQLException {
 		DatabaseHandler dbHandler = new DatabaseHandler();
 		String name = nameTextField.getText();
 		String surname = surnameTextField.getText();
@@ -118,12 +114,10 @@ public class SignUpController {
 		String speciality = specialityTextField.getText();
 		String email = emailField.getText();
 		String password = passwordField.getText();
-		
+
 		FullName fullname = new FullName(surname, name, patronymic);
-		
-		
+
 		User user = new User(fullname, organisation, department, speciality, email, password);
-		
 
 		dbHandler.signUpUser(user);
 	}

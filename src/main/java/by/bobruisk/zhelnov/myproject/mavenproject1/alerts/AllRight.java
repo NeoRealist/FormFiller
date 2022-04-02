@@ -17,7 +17,7 @@ public class AllRight {
         alert.setTitle("All right");
 	alert.setHeaderText("All right");
 	alert.setContentText("Forms sent for printing");
-	alert.showAndWait(); 
+	alert.show(); 
     }
     
 }

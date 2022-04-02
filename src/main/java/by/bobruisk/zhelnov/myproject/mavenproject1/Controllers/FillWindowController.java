@@ -10,10 +10,12 @@ import by.bobruisk.zhelnov.myproject.mavenproject1.Exceptions.IncorrectNumberExc
 import by.bobruisk.zhelnov.myproject.mavenproject1.alerts.AllRight;
 import by.bobruisk.zhelnov.myproject.mavenproject1.alerts.FieldsFilledOutIncorrectly;
 import by.bobruisk.zhelnov.myproject.mavenproject1.alerts.OtherCharsInNumericFields;
+import by.bobruisk.zhelnov.myproject.mavenproject1.helpers.ExceptionChecker;
 import by.bobruisk.zhelnov.myproject.mavenproject1.helpers.Printer;
 import by.bobruisk.zhelnov.myproject.mavenproject1.FullName;
 import by.bobruisk.zhelnov.myproject.mavenproject1.HomeAddress;
 import by.bobruisk.zhelnov.myproject.mavenproject1.Patient;
+import by.bobruisk.zhelnov.myproject.mavenproject1.Controllers.dbcontrollers.DatabaseHandler;
 
 import java.io.File;
 
@@ -196,17 +198,20 @@ public class FillWindowController {
 	}
 
 	public void onAction() throws Exception {
-
 		File fileForPrint = new File(System.getProperty("user.home") + "/Desktop/Print.xlsx");
 
 		Patient patient = getPatient();
-		System.out.println(patient);
+		System.out.println(patient + " Выбранные анализы: "+ getTextFromSelectedCheckbox());
 		checkingPatientFields(patient);
-		if(!hasErrors) {
+		if(!hasErrors) {		
 		FillFileForPrint(patient, fileForPrint);
-
 		Printer p = new Printer();
 		p.printExcelFile(fileForPrint);
+		System.gc();
+		fileForPrint.delete();
+		DatabaseHandler dbHandler = new DatabaseHandler();
+		dbHandler.addEntry(patient, surveyReasonTextField.getText(), getTextFromSelectedCheckbox());
+
 		}
 
 	}
@@ -250,12 +255,12 @@ public class FillWindowController {
 	private void checkingPatientFields(Patient patient) {
 		ExceptionChecker ec = new ExceptionChecker();
 		ec.checkAll(patient);
-		if (ec.hasErrors) {
+		if (ec.getHasErrors()) {
 			hasErrors =true;
 			FieldsFilledOutIncorrectly.show(ec.getErrorMessage());
-		} else {
-			AllRight.show();
+		} else {			
 			hasErrors = false;
+			AllRight.show();
 		}
 
 	}
@@ -273,8 +278,6 @@ public class FillWindowController {
 	}
 
 	private void fillPatientFieldsInWorkbook(Patient patient, Workbook workbook) {
-		// TODO лучше использовать поля напрямую, на случай
-		// если будет ошибка при создании Patient
 		Worksheet worksheet = workbook.getWorksheets().get(0);
 		worksheet.getCellRange("C55").setText(patient.getFullName().getSurname());
 		worksheet.getCellRange("E55").setText(patient.getFullName().getName());
@@ -322,6 +325,20 @@ public class FillWindowController {
 
 		workbookForPrint.saveToFile(fileForPrint.getAbsolutePath());
 
+	}
+	private String getTextFromSelectedCheckbox() {
+		String selectedCheckboxes = "";
+		List<CheckBox> checkboxes = new ArrayList<>();
+		checkboxes.add(GBT_GU_GluAndChol_ECG_CB);
+		checkboxes.add(BC_Coag_CB);
+		checkboxes.add(RW_PCR_CB);
+		for (CheckBox checkBox : checkboxes) {
+			if(checkBox.isSelected()) {
+				selectedCheckboxes += checkBox.getText();				
+			}
+		}
+		
+		return selectedCheckboxes;
 	}
 
 }

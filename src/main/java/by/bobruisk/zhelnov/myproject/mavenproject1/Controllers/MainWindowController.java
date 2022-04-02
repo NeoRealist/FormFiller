@@ -1,7 +1,6 @@
 
 package by.bobruisk.zhelnov.myproject.mavenproject1.Controllers;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
@@ -10,9 +9,9 @@ import java.util.ResourceBundle;
 import by.bobruisk.zhelnov.myproject.mavenproject1.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -85,7 +84,7 @@ public class MainWindowController extends App {
 
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 		});

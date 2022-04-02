@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package by.bobruisk.zhelnov.myproject.mavenproject1.Controllers;
+package by.bobruisk.zhelnov.myproject.mavenproject1.helpers;
 
 import by.bobruisk.zhelnov.myproject.mavenproject1.BirthDate;
 
@@ -79,7 +79,7 @@ public class ExceptionChecker {
 			setErrorMessage(errorMessage + "Wrong street\n");
 		}
 		if(homeAddress.getHomeNumber() == 0) {
-			setErrorMessage(errorMessage + "Home number not can be 0 street\n");
+			setErrorMessage(errorMessage + "Home number not can be 0\n");
 		}
 
 
