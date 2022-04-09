@@ -19,7 +19,7 @@
       <ComboBox fx:id="dayComboBox" layoutX="14.0" layoutY="244.0" prefHeight="25.0" prefWidth="60.0" />
       <ComboBox fx:id="monthComboBox" layoutX="86.0" layoutY="244.0" prefHeight="25.0" prefWidth="60.0" />
 		<TextField fx:id="yearOfTheBirthdayTextField" layoutX="154.0" layoutY="244.0" prefHeight="22.0" prefWidth="52.0" promptText="1970" />
-		<TextField fx:id="streetTextField" layoutX="218.0" layoutY="244.0" prefHeight="22.0" prefWidth="178.0" promptText="%exampleStreet" />
+		<TextField fx:id="streetTextField" layoutX="218.0" layoutY="244.0" onMouseClicked="#openSearchWindow" prefHeight="22.0" prefWidth="178.0" promptText="%exampleStreet" />
 		<TextField fx:id="homeNumberTextField" layoutX="404.0" layoutY="244.0" prefHeight="22.0" prefWidth="46.0" promptText="%exampleHomeNumber" />
 		<TextField fx:id="buildNumberTextField" layoutX="459.0" layoutY="244.0" prefHeight="22.0" prefWidth="46.0" promptText="%exampleBuilding" />
 		<TextField fx:id="flatNumberTextField" layoutX="516.0" layoutY="244.0" prefHeight="22.0" prefWidth="46.0" promptText="%exampleFlatNumber" />

@@ -24,6 +24,7 @@ public class App extends Application {
 		ResourceBundle bundle = ResourceBundle
 				.getBundle("resources.by.bobruisk.zhelnov.myproject.mavenproject1.i18n.language", currentLocale);
 		scene = new Scene(loadFXML("mainWindow", bundle));
+//		scene = new Scene(loadFXML("searchView", bundle));
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -32,7 +33,7 @@ public class App extends Application {
 		scene.setRoot(loadFXML(fxml, bundle));
 	}
 
-	private static Parent loadFXML(String fxml, ResourceBundle bundle) throws IOException {
+	public static Parent loadFXML(String fxml, ResourceBundle bundle) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"), bundle);
 		return fxmlLoader.load();
 	}

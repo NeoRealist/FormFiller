@@ -106,6 +106,7 @@ public class SignUpController {
 
 	private void signUpNewUser() throws ClassNotFoundException, SQLException {
 		DatabaseHandler dbHandler = new DatabaseHandler();
+		
 		String name = nameTextField.getText();
 		String surname = surnameTextField.getText();
 		String patronymic = patronymicTextField.getText();

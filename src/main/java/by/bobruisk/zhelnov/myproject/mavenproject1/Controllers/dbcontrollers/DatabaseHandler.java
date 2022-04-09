@@ -10,6 +10,7 @@ import java.util.Calendar;
 
 import by.bobruisk.zhelnov.myproject.mavenproject1.Patient;
 import by.bobruisk.zhelnov.myproject.mavenproject1.User;
+import by.bobruisk.zhelnov.myproject.mavenproject1.helpers.Order;
 
 public class DatabaseHandler extends Configs {
 
@@ -31,6 +32,8 @@ public class DatabaseHandler extends Configs {
 		createEntryTable(dbConnection);
 
 		createUserTable(dbConnection);
+		
+		createStreetTable(dbConnection);
 
 		return dbConnection;
 	}
@@ -108,7 +111,7 @@ public class DatabaseHandler extends Configs {
 	private void createUserTable(Connection dbConnection) throws SQLException {
 		Statement stat = dbConnection.createStatement();
 		stat.execute(
-				"CREATE TABLE IF NOT EXISTS users(iduser int AUTO_INCREMENT PRIMARY KEY, name varchar(45), surname varchar(45),patronymic varchar(45),"
+				"CREATE TABLE IF NOT EXISTS user(iduser int AUTO_INCREMENT PRIMARY KEY, name varchar(45), surname varchar(45),patronymic varchar(45),"
 						+ "organisation varchar(45),department varchar(45),speciality varchar(45),"
 						+ "email varchar(45),password varchar(45))");
 
@@ -148,9 +151,34 @@ public class DatabaseHandler extends Configs {
 
 	}
 
+	
+	public void addStreet(Order order) {
+		String insert = "INSERT INTO " + Const.STREET_TABLE + "(" + Const.STREET_NAME
+				+ "," + Const.STREET_CITY + ")" + " VALUES(?,?)";
+		try {
+			PreparedStatement prSt = getDBConnection().prepareStatement(insert);
+			prSt.setString(1, order.getStreet());
+			prSt.setString(2, order.getCity());
+			
+			
+			prSt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	private void createStreetTable(Connection dbConnection) throws SQLException {
+		Statement stat = dbConnection.createStatement();
+		stat.execute("CREATE TABLE IF NOT EXISTS street(id int AUTO_INCREMENT PRIMARY KEY, name varchar(45),city varchar(45))");
+	}
+
 	private static String getDateTodayString() {
-		String dateToday = String.valueOf(Calendar.getInstance().get(Calendar.DATE))+"."+ String.valueOf(Calendar.getInstance().get(Calendar.MONTH)+1)+"."+String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-		
+		String dateToday = String.valueOf(Calendar.getInstance().get(Calendar.DATE)) + "."
+				+ String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1) + "."
+				+ String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+
 		return dateToday;
 	}
 

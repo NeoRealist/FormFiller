@@ -55,6 +55,7 @@ public class SignInController {
 		String password = passwordField.getText().trim();
 		System.out.println("Email: " + login);
 		System.out.println("Password: " + password);
+		
 
 		if (login.equals("") || password.equals("")) {
 			HasEmptyFields.show();
@@ -66,6 +67,8 @@ public class SignInController {
 
 	@FXML
 	void initialize() {
+		loginField.setText("example@tut.by");
+		passwordField.setText("12345678");
 		assert formFillerLabel != null
 				: "fx:id=\"formFillerLabel\" was not injected: check your FXML file 'signIN.fxml'.";
 		assert loginField != null : "fx:id=\"loginField\" was not injected: check your FXML file 'signIN.fxml'.";

@@ -31,7 +31,11 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.CheckBox;
@@ -41,6 +45,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import com.spire.xls.FileFormat;
 
@@ -214,6 +220,34 @@ public class FillWindowController {
 
 		}
 
+	}
+	
+	public void openSearchWindow() {
+		System.out.println("Click");
+		Parent root;
+        try {
+            root = App.loadFXML("searchView", resources);
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+//            stage.setTitle("My New Stage Title");
+//            stage.setScene(new Scene(root, 450, 450));
+            stage.show();
+            // Hide this current window (if this is what you want)
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				
+				@Override
+				public void handle(WindowEvent event) {
+					streetTextField.setText(SearchController.selectedRow.getStreet());
+					System.out.println(SearchController.selectedRow);
+					
+				}
+			});
+            
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 
 	public Patient getPatient() {

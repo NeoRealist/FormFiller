@@ -3,7 +3,7 @@ package by.bobruisk.zhelnov.myproject.mavenproject1.Controllers.dbcontrollers;
 public class Const {
 	
 	
-	public static final String USER_TABLE = "users";
+	public static final String USER_TABLE = "user";
 	
 	public static final String USER_ID = "idusers";
 	public static final String USER_NAME = "name";
@@ -25,6 +25,14 @@ public class Const {
 	public static final String ENTRY_PATIENT_ADRESS = "patient_address";
 	public static final String ENTRY_SURVEY_REASON = "survey_reason";
 	public static final String ENTRY_ISSUED_ANALYZES = "issued_analyzes";
+	
+public static final String STREET_TABLE = "street";
+	
+	public static final String STREET_ID = "id";
+	public static final String STREET_NAME = "name";
+//	public static final String STREET_TYPE = "type";
+	public static final String STREET_CITY = "city";
+
 	
 	
 	
