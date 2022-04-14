@@ -17,6 +17,7 @@
           <include>**/*.xlsx</include>
           <include>**/*.properties</include>
           <include>**/*.txt</include>
+          <include>**/*.sql</include>
         </includes>
       </resource>
       <resource>

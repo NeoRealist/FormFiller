@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package by.bobruisk.zhelnov.myproject.mavenproject1.Controllers;
 
 import by.bobruisk.zhelnov.myproject.mavenproject1.App;
@@ -31,7 +27,6 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -46,14 +41,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import com.spire.xls.FileFormat;
 
 import com.spire.xls.Workbook;
 import com.spire.xls.Worksheet;
-
-
 
 public class FillWindowController {
 
@@ -136,7 +128,7 @@ public class FillWindowController {
 
 	@FXML
 	private void switchToMainWindow() throws IOException {
-		App.setRoot("mainWindow",resources);
+		App.setRoot("mainWindow", resources);
 	}
 
 	@FXML
@@ -160,7 +152,8 @@ public class FillWindowController {
 				+ SignInController.getUser().getFullName().getSurname());
 		organizationTextField.setText(SignInController.getUser().getOrganizationName());
 		departmentTextField.setText(SignInController.getUser().getDepartmentName());
-		doctorTextField.setText(SignInController.getUser().getSpeciality() +" " +  SignInController.getUser().getFullName().getName().substring(0, 1) + "."
+		doctorTextField.setText(SignInController.getUser().getSpeciality() + " "
+				+ SignInController.getUser().getFullName().getName().substring(0, 1) + "."
 				+ SignInController.getUser().getFullName().getPatronymic().substring(0, 1) + ". "
 				+ SignInController.getUser().getFullName().getSurname());
 		surveyReasonTextField.setText("Обследование");
@@ -205,49 +198,43 @@ public class FillWindowController {
 
 	public void onAction() throws Exception {
 		File fileForPrint = new File(System.getProperty("user.home") + "/Desktop/Print.xlsx");
+		
 
 		Patient patient = getPatient();
-		System.out.println(patient + " Выбранные анализы: "+ getTextFromSelectedCheckbox());
+		System.out.println(patient + " Выбранные анализы: " + getTextFromSelectedCheckbox());
 		checkingPatientFields(patient);
-		if(!hasErrors) {		
-		FillFileForPrint(patient, fileForPrint);
-		Printer p = new Printer();
-		p.printExcelFile(fileForPrint);
-		System.gc();
-		fileForPrint.delete();
-		DatabaseHandler dbHandler = new DatabaseHandler();
-		dbHandler.addEntry(patient, surveyReasonTextField.getText(), getTextFromSelectedCheckbox());
+		if (!hasErrors) {
+			FillFileForPrint(patient, fileForPrint);
+			Printer p = new Printer();
+			p.printExcelFile(fileForPrint);
+//			System.gc();
+//			fileForPrint.delete();
+			DatabaseHandler dbHandler = new DatabaseHandler();
+			dbHandler.addEntry(patient, surveyReasonTextField.getText(), getTextFromSelectedCheckbox());
 
 		}
 
 	}
-	
+
 	public void openSearchWindow() {
 		System.out.println("Click");
 		Parent root;
-        try {
-            root = App.loadFXML("searchView", resources);
-            
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-//            stage.setTitle("My New Stage Title");
-//            stage.setScene(new Scene(root, 450, 450));
-            stage.show();
-            // Hide this current window (if this is what you want)
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-				
-				@Override
-				public void handle(WindowEvent event) {
-					streetTextField.setText(SearchController.selectedRow.getStreet());
-					System.out.println(SearchController.selectedRow);
-					
-				}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("searchWindow.fxml"), resources);
+			root = fxmlLoader.load();
+			SearchController sc = fxmlLoader.getController();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.show();		
+			
+			sc.getSelectButton().setOnAction(event -> {
+				streetTextField.setText(SearchController.selectedOrderRow.getStreet());
+				stage.close();
 			});
-            
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Patient getPatient() {
@@ -257,9 +244,6 @@ public class FillWindowController {
 					patromymicTextField.getText());
 			BirthDate birthDate = new BirthDate(dayComboBox.getValue(), monthComboBox.getValue(),
 					Integer.parseInt(yearOfTheBirthdayTextField.getText()));
-//		HomeAddress homeAdress = new HomeAddress(streetTextField.getText(),
-//				Integer.parseInt(homeNumberTextField.getText()), buildNumberTextField.getText(),
-//				Integer.parseInt(flatNumberTextField.getText()));
 			HomeAddress homeAddress = new HomeAddress();
 			homeAddress.setStreetName(streetTextField.getText());
 			if (homeNumberTextField.getText().equals("")) {
@@ -290,9 +274,9 @@ public class FillWindowController {
 		ExceptionChecker ec = new ExceptionChecker();
 		ec.checkAll(patient);
 		if (ec.getHasErrors()) {
-			hasErrors =true;
+			hasErrors = true;
 			FieldsFilledOutIncorrectly.show(ec.getErrorMessage());
-		} else {			
+		} else {
 			hasErrors = false;
 			AllRight.show();
 		}
@@ -303,9 +287,10 @@ public class FillWindowController {
 		Worksheet worksheet = workbook.getWorksheets().get(0);
 		worksheet.getCellRange("A1").setText(organizationTextField.getText());
 		worksheet.getCellRange("C54").setText(SignInController.getUser().getSpeciality());
-		worksheet.getCellRange("F54").setText(SignInController.getUser().getFullName().getName().substring(0, 1) + "."
-				+ SignInController.getUser().getFullName().getPatronymic().substring(0, 1) + ". "
-				+ SignInController.getUser().getFullName().getSurname());
+		worksheet.getCellRange("F54")
+				.setText(SignInController.getUser().getFullName().getName().substring(0, 1) + "."
+						+ SignInController.getUser().getFullName().getPatronymic().substring(0, 1) + ". "
+						+ SignInController.getUser().getFullName().getSurname());
 		worksheet.getCellRange("K54").setText(surveyReasonTextField.getText());
 		worksheet.getCellRange("L55").setText(departmentTextField.getText());
 
@@ -330,7 +315,7 @@ public class FillWindowController {
 		Workbook originalWorkbook = new Workbook();
 
 		InputStream is = App.class.getResourceAsStream("Original.xlsx");
-
+		
 		originalWorkbook.loadFromStream(is);
 
 		fillPatientFieldsInWorkbook(patient, originalWorkbook);
@@ -360,6 +345,7 @@ public class FillWindowController {
 		workbookForPrint.saveToFile(fileForPrint.getAbsolutePath());
 
 	}
+
 	private String getTextFromSelectedCheckbox() {
 		String selectedCheckboxes = "";
 		List<CheckBox> checkboxes = new ArrayList<>();
@@ -367,12 +353,17 @@ public class FillWindowController {
 		checkboxes.add(BC_Coag_CB);
 		checkboxes.add(RW_PCR_CB);
 		for (CheckBox checkBox : checkboxes) {
-			if(checkBox.isSelected()) {
-				selectedCheckboxes += checkBox.getText();				
+			if (checkBox.isSelected()) {
+				selectedCheckboxes += checkBox.getText();
 			}
 		}
-		
+
 		return selectedCheckboxes;
+	}
+
+	public void setStreetTextField(String streetTextField) {
+		this.streetTextField.setText(streetTextField);
+		;
 	}
 
 }

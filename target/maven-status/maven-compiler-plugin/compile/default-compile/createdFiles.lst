@@ -18,9 +18,11 @@ module-info.class
 by\bobruisk\zhelnov\myproject\mavenproject1\App.class
 by\bobruisk\zhelnov\myproject\mavenproject1\Controllers\FillWindowController.class
 by\bobruisk\zhelnov\myproject\mavenproject1\helpers\ExceptionChecker.class
+by\bobruisk\zhelnov\myproject\mavenproject1\Controllers\SearchController$2.class
 by\bobruisk\zhelnov\myproject\mavenproject1\Exceptions\IncorrectNumberException.class
 by\bobruisk\zhelnov\myproject\mavenproject1\HomeAddress.class
 by\bobruisk\zhelnov\myproject\mavenproject1\alerts\OtherCharsInNumericFields.class
+by\bobruisk\zhelnov\myproject\mavenproject1\helpers\Order.class
 by\bobruisk\zhelnov\myproject\mavenproject1\BirthDate.class
 by\bobruisk\zhelnov\myproject\mavenproject1\Controllers\SignUpController.class
 by\bobruisk\zhelnov\myproject\mavenproject1\MyAlert.class

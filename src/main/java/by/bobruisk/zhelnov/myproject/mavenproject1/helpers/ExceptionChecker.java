@@ -21,7 +21,7 @@ public class ExceptionChecker {
 	Pattern patternForStreet1 = Pattern.compile("^([A-Za-zА-Яа-я0-9\\s-]{3,15})?[A-Za-zА-Яа-я0-9\\s]{2,25}$");
 	Pattern patternForStreet2 = Pattern
 			.compile("(((У|у)лица)|((П|п)роезд)|((П|п)роспект)|((Б|б)ульвар)|((П|п)ереулок))+");
-	Pattern patternForFullNameFields = Pattern.compile("^[A-Za-zА-Яа-я]{2,25}[-]?([A-Za-zА-Яа-я]{2,25})?$");
+	Pattern patternForFullNameFields = Pattern.compile("^[A-ZА-Я]{1}[a-zа-яё]{1,25}[-]?([A-ZА-Я]{1}[a-zа-яё]{1,25})?$");
 	Pattern patternForYearOfBirth = Pattern.compile("[1-2]{1}[90]{1}[0-9]{1}[0-9]{1}");
 
 	Patient dataPatient;

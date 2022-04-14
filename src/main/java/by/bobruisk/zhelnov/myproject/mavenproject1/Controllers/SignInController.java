@@ -7,12 +7,23 @@ import by.bobruisk.zhelnov.myproject.mavenproject1.Controllers.dbcontrollers.Dat
 import by.bobruisk.zhelnov.myproject.mavenproject1.alerts.HasEmptyFields;
 import by.bobruisk.zhelnov.myproject.mavenproject1.alerts.WrongLoginOrPassword;
 
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -24,7 +35,7 @@ import javafx.scene.control.TextField;
 
 public class SignInController {
 
-
+	URL url = App.class.getResource("constants/rememberUser.properties");
 
 	private static User user;
 
@@ -53,9 +64,14 @@ public class SignInController {
 	private void switchToFillWindow() throws IOException {
 		String login = loginField.getText().trim();
 		String password = passwordField.getText().trim();
+
+		if (remeberMeCheckBox.isSelected()) {
+			setRememberUser(login, password);
+		} else {
+			setRememberisation(false);
+		}
 		System.out.println("Email: " + login);
 		System.out.println("Password: " + password);
-		
 
 		if (login.equals("") || password.equals("")) {
 			HasEmptyFields.show();
@@ -65,10 +81,42 @@ public class SignInController {
 
 	}
 
+	private boolean hasRemember() {
+
+		File file;
+		try {
+			file = Paths.get(url.toURI()).toFile();
+			FileReader fileReader = new FileReader(file);
+
+			Reader reader = new BufferedReader(fileReader);
+
+			Properties property = new Properties();
+			property.load(reader);
+
+			boolean b = false;
+			b = Boolean.valueOf(property.get("remember").toString());
+
+			return b;
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+
+	}
+
 	@FXML
 	void initialize() {
-		loginField.setText("example@tut.by");
-		passwordField.setText("12345678");
+		if (hasRemember()) {
+			loginField.setText(getRememberedLogin());
+			passwordField.setText(getRememberedPassword());
+		}
 		assert formFillerLabel != null
 				: "fx:id=\"formFillerLabel\" was not injected: check your FXML file 'signIN.fxml'.";
 		assert loginField != null : "fx:id=\"loginField\" was not injected: check your FXML file 'signIN.fxml'.";
@@ -77,16 +125,13 @@ public class SignInController {
 				: "fx:id=\"remeberMeCheckBox\" was not injected: check your FXML file 'signIN.fxml'.";
 		assert singInButton != null : "fx:id=\"singInButton\" was not injected: check your FXML file 'signIN.fxml'.";
 
-
-
 	}
 
 	private void signIn(String loginText, String password) throws IOException {
-//    	App.setRoot("fillWindow");
+
 		DatabaseHandler dbHandler = new DatabaseHandler();
 
 		User user = new User();
-
 
 		user.setEmail(loginText);
 		user.setPassword(password);
@@ -122,6 +167,119 @@ public class SignInController {
 
 		SignInController.user = user;
 
+	}
+
+	private void setRememberUser(String login, String password) {
+		File file;
+		try {
+			file = Paths.get(url.toURI()).toFile();
+			FileWriter fw = new FileWriter(file);
+			BufferedWriter writer = new BufferedWriter(fw);
+			writer.write("remember=true\n");
+			writer.write("login=" + login + "\n");
+			writer.write("password=" + password + "\n");
+
+			writer.close();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	private void setRememberisation(boolean hasRemember) {
+		File file;
+		try {
+			file = Paths.get(url.toURI()).toFile();
+			FileInputStream in = new FileInputStream(file);
+			FileReader fileReader = new FileReader(file);
+
+			Reader reader = new BufferedReader(fileReader);
+
+			Properties property = new Properties();
+			property.load(reader);
+			in.close();
+
+			FileOutputStream out = new FileOutputStream(file);
+			property.setProperty("remember", Boolean.toString(hasRemember));
+			property.store(out, null);
+			out.close();
+
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	private String getRememberedLogin() {
+		File file;
+		String login;
+		try {
+			file = Paths.get(url.toURI()).toFile();
+			FileReader fileReader = new FileReader(file);
+
+			Reader reader = new BufferedReader(fileReader);
+
+			Properties property = new Properties();
+			property.load(reader);
+
+			login = property.get("login").toString();
+
+			return login;
+		} catch (URISyntaxException e) {
+			System.out.println(1);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println(2);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(3);
+		} catch (NullPointerException e) {
+			login = "";
+		}
+
+		return "";
+	}
+
+	private String getRememberedPassword() {
+		File file;
+		String password;
+		try {
+			file = Paths.get(url.toURI()).toFile();
+			FileReader fileReader = new FileReader(file);
+
+			Reader reader = new BufferedReader(fileReader);
+
+			Properties property = new Properties();
+			property.load(reader);
+
+			password = property.get("password").toString();
+
+			return password;
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			password = "";
+		}
+
+		return "";
 	}
 
 	public static User getUser() {

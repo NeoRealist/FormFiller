@@ -27,6 +27,7 @@ public class App extends Application {
 //		scene = new Scene(loadFXML("searchView", bundle));
 		stage.setScene(scene);
 		stage.show();
+		
 	}
 
 	public static void setRoot(String fxml, ResourceBundle bundle) throws IOException {
@@ -35,6 +36,7 @@ public class App extends Application {
 
 	public static Parent loadFXML(String fxml, ResourceBundle bundle) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"), bundle);
+		
 		return fxmlLoader.load();
 	}
 

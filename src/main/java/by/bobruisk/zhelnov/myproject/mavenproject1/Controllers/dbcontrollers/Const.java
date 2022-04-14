@@ -33,8 +33,15 @@ public static final String STREET_TABLE = "street";
 //	public static final String STREET_TYPE = "type";
 	public static final String STREET_CITY = "city";
 
+public static final String NAME_TABLE = "street";
 	
+	public static final String NAME_ID = "id";
+	public static final String NAME_TEXT = "name";
+
+public static final String SURNAME_TABLE = "street";
 	
+	public static final String SURNAME_ID = "id";
+	public static final String SURNAME_TEXT = "name";	
 	
 
 }

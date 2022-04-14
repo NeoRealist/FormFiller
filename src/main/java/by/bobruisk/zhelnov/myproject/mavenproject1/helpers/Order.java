@@ -23,6 +23,9 @@ public class Order {
 		this.street = new SimpleStringProperty(street);
 		this.city = new SimpleStringProperty(city);
 	}
+	public Order() {
+
+	}
 
 	public int getId() {
 		return id.get();
@@ -64,9 +67,9 @@ public class Order {
 		return id + ", " + street + ", " + city;
 
 	}
-	public static ArrayList<Order> getOrders() {
+	public ArrayList<Order> getOrders() {
 		DatabaseHandler dbHandler = new DatabaseHandler();
-		ArrayList<Order> arr = new ArrayList();
+		ArrayList<Order> arr = new ArrayList<Order>();
 		
 		String select  = "SELECT * FROM street";
 		

@@ -7,6 +7,7 @@ module by.bobruisk.zhelnov.myproject.mavenproject1 {
 	requires java.sql;
 	requires javafx.graphics;
 	requires javafx.base;
+	requires org.mybatis;
 //	requires spire.xls;
 
 

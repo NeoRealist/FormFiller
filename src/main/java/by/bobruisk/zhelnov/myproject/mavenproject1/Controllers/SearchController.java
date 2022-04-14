@@ -1,5 +1,6 @@
 package by.bobruisk.zhelnov.myproject.mavenproject1.Controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -52,24 +54,31 @@ public class SearchController extends App {
 
 	@FXML
 	public void initialize() {
+
+//		try {
+
+//			System.out.println(fillWindow.getPatient());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+
+//		selectButton.setOnAction(event -> {
+//			FXMLLoader fillWindowLoader = new FXMLLoader(App.class.getResource("mainWindow.fxml"), resources);
+//			try {
+//				FillWindowController fillWindow = fillWindowLoader.load();
+//			} catch (IOException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//		});
+
 		orderIdColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
 		streetColumn.setCellValueFactory(cellData -> cellData.getValue().streetProperty());
 		cityColumn.setCellValueFactory(cellData -> cellData.getValue().cityProperty());
 
-		List<Order> orders = Order.getOrders();
-//		orders.add(new Order(1, "New York", "New York")); // 8,323,340
-//		orders.add(new Order(2, "Colorado", "Denver"));
-//		orders.add(new Order(3, "Missouri", "Kansas City"));
-//		orders.add(new Order(4, "Nebraska", "Custer"));
-//		orders.add(new Order(5, "Iowa", "Black Hawk"));
-//		orders.add(new Order(6, "Nevada", "Las Vegas"));
-//		orders.add(new Order(7, "California", "San Diego")); // 1.54m
-//		orders.add(new Order(8, "Illinois", "Chicago")); // 2.2m
-//		orders.add(new Order(9, "Massachusetts", "Boston")); // 4.3m
-//		orders.add(new Order(10, "Vermont", "Montpellier"));
-//		orders.add(new Order(11, "Alberta", "Revelstoke"));
-//		orders.add(new Order(12, "Manitoba", "Winnipeg"));
-//		orders.add(new Order(13, "British Colombia", "Terrace"));
+		Order newOrders = new Order();
+		List<Order> orders = newOrders.getOrders();
 
 		FilteredList<Order> filteredData = new FilteredList<>(FXCollections.observableList(orders));
 		exampleTable.setItems(filteredData);
@@ -89,26 +98,7 @@ public class SearchController extends App {
 		searchBox.textProperty().addListener(
 				(observable, oldValue, newValue) -> exampleTable.setItems(filterList(orders, newValue.toLowerCase())));
 
-//        System.out.println(exampleTable.getSelectionModel().getSelectedItem().toString());
-//        System.out.println(exampleTable.getItems().get(2).toString());
-
-//		exampleTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
-//			@Override
-//			public void changed(ObservableValue<?> observableValue, Object oldValue, Object newValue) {
-//				// Check whether item is selected and set value of selected item to Label
-//				if (exampleTable.getSelectionModel().getSelectedItem() != null) {
-//					TableViewSelectionModel<Order> selectionModel = exampleTable.getSelectionModel();
-//					ObservableList<?> selectedCells = selectionModel.getSelectedCells();
-//					TablePosition<Object, ?> tablePosition = (TablePosition<Object, ?>) selectedCells.get(0);
-//					Object val = tablePosition.getTableColumn().getCellData(newValue);
-//					System.out.println("Selected Value " + val);
-//				}
-//			}
-//
-//		});
 		setClickedCell();
-//		System.out.println(selectedCell = getClickedCell());
-//		System.out.println(selectedRow);
 
 	}
 
@@ -134,7 +124,8 @@ public class SearchController extends App {
 	private boolean searchFindsOrder(Order order, String searchText) {
 		return (order.getCity().toLowerCase().contains(searchText))
 				|| (order.getStreet().toLowerCase().contains(searchText))
-				|| Integer.valueOf(order.getId()).toString().equals(searchText);
+//				|| Integer.valueOf(order.getId()).toString().equals(searchText);
+				|| String.valueOf(order.getId()).contains(searchText);
 	}
 
 	@FXML
@@ -164,63 +155,52 @@ public class SearchController extends App {
 
 	}
 
+//	@FXML
+//	public void clickItem(MouseEvent event) {
+//		if (event.getClickCount() == 2) // Checking double click
+//		{
+//			System.out.println(exampleTable.getSelectionModel().getSelectedItem().getId());
+//			System.out.println(exampleTable.getSelectionModel().getSelectedItem().getStreet());
+//			System.out.println(exampleTable.getSelectionModel().getSelectedItem().getCity());
+//			System.out.println(event);
+//		}
+//	}
+
 	@FXML
-	public void clickItem(MouseEvent event) {
-		if (event.getClickCount() == 2) // Checking double click
-		{
-			System.out.println(exampleTable.getSelectionModel().getSelectedItem().getId());
-			System.out.println(exampleTable.getSelectionModel().getSelectedItem().getStreet());
-			System.out.println(exampleTable.getSelectionModel().getSelectedItem().getCity());
-			System.out.println(event);
-		}
+	private Button selectButton;
+
+	public Button getSelectButton() {
+		return selectButton;
 	}
-	
-	@FXML
-	private Button get;
-	
+
 	public void getSearchBoxText() {
-		System.out.println(selectedRow);
+
 	}
-	
-	
 
-	public static Order selectedRow = null;
-	
+	public static Order selectedOrderRow = null;
 
-	
 	private void setClickedCell() {
 
 		exampleTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
 			@Override
 			public void changed(ObservableValue<?> observableValue, Object oldValue, Object newValue) {
-				String selectedRowString;
-				// Check whether item is selected and set value of selected item to Label
+
 				if (exampleTable.getSelectionModel().getSelectedItem() != null) {
 					TableViewSelectionModel<Order> selectionModel = exampleTable.getSelectionModel();
 					ObservableList<?> selectedCells = selectionModel.getSelectedCells();
-//					System.out.println(selectionModel.getSelectedIndex());
-//					// выбрать определённую строку из выбранной строки
-					System.out.println(exampleTable.getItems().get(selectionModel.getSelectedIndex()));
+//					выбрать определённую столбец из выбранной строки
 					TablePosition<Object, ?> tablePosition = (TablePosition<Object, ?>) selectedCells.get(0);
 					Object val = tablePosition.getTableColumn().getCellData(newValue);
 					searchBox.setText(val.toString());
-					System.out.println("Selected Value " + val);
-					selectedRowString = exampleTable.getItems().get(selectionModel.getSelectedIndex()).getId() + " "
-							+  exampleTable.getItems().get(selectionModel.getSelectedIndex()).getCity() + " "
-							+  exampleTable.getItems().get(selectionModel.getSelectedIndex()).getStreet();
-					selectedRow = exampleTable.getItems().get(selectionModel.getSelectedIndex());
-//					selectedRow = selectedRowString;
-					System.out.println(selectedRow);
+					selectedOrderRow = exampleTable.getItems().get(selectionModel.getSelectedIndex());
 
+					System.out.println(selectedOrderRow);
 
-//					System.out.println(selectedCell);
 				}
 
 			}
 
 		});
-		
-//		return selectedCell;
 
 	}
 

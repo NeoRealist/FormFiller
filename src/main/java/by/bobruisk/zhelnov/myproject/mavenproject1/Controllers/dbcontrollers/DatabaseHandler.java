@@ -1,5 +1,16 @@
 package by.bobruisk.zhelnov.myproject.mavenproject1.Controllers.dbcontrollers;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,11 +19,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
 
+import org.apache.ibatis.jdbc.ScriptRunner;
+
+import by.bobruisk.zhelnov.myproject.mavenproject1.App;
 import by.bobruisk.zhelnov.myproject.mavenproject1.Patient;
 import by.bobruisk.zhelnov.myproject.mavenproject1.User;
 import by.bobruisk.zhelnov.myproject.mavenproject1.helpers.Order;
 
 public class DatabaseHandler extends Configs {
+	
+	URL url = App.class.getResource("constants/database.properties");
 
 	Connection dbConnection;
 
@@ -32,8 +48,9 @@ public class DatabaseHandler extends Configs {
 		createEntryTable(dbConnection);
 
 		createUserTable(dbConnection);
-		
+
 		createStreetTable(dbConnection);
+		runSqlScript(App.class.getResource("sql-scripts/addStreets.sql"));
 
 		return dbConnection;
 	}
@@ -151,16 +168,20 @@ public class DatabaseHandler extends Configs {
 
 	}
 
-	
+	private void createStreetTable(Connection dbConnection) throws SQLException {
+		Statement stat = dbConnection.createStatement();
+		stat.execute(
+				"CREATE TABLE IF NOT EXISTS street(id int AUTO_INCREMENT PRIMARY KEY, name varchar(45),city varchar(45))");
+	}
+
 	public void addStreet(Order order) {
-		String insert = "INSERT INTO " + Const.STREET_TABLE + "(" + Const.STREET_NAME
-				+ "," + Const.STREET_CITY + ")" + " VALUES(?,?)";
+		String insert = "INSERT INTO " + Const.STREET_TABLE + "(" + Const.STREET_NAME + "," + Const.STREET_CITY + ")"
+				+ " VALUES(?,?)";
 		try {
 			PreparedStatement prSt = getDBConnection().prepareStatement(insert);
 			prSt.setString(1, order.getStreet());
 			prSt.setString(2, order.getCity());
-			
-			
+
 			prSt.executeUpdate();
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -168,10 +189,29 @@ public class DatabaseHandler extends Configs {
 		}
 
 	}
+
+	private static boolean isStreetsAdded = false;
 	
-	private void createStreetTable(Connection dbConnection) throws SQLException {
-		Statement stat = dbConnection.createStatement();
-		stat.execute("CREATE TABLE IF NOT EXISTS street(id int AUTO_INCREMENT PRIMARY KEY, name varchar(45),city varchar(45))");
+	
+
+	private void runSqlScript(URL url) {
+		if (!isStreetsAdded) {
+			ScriptRunner scriptRunner = new ScriptRunner(dbConnection);
+			try {
+				File file = Paths.get(url.toURI()).toFile();
+				FileReader fileReader = new FileReader(file);
+				Reader reader = new BufferedReader(fileReader);
+				scriptRunner.runScript(reader);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			isStreetsAdded = true;
+		}
+
 	}
 
 	private static String getDateTodayString() {
